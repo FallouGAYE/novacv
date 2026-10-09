@@ -13,3 +13,8 @@ coverage/
 .DS_Store
 .idea/
 .vscode/
+# Turborepo cache
+.turbo/
+
+# TypeScript incremental build
+*.tsbuildinfo
