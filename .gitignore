@@ -18,3 +18,12 @@ coverage/
 
 # TypeScript incremental build
 *.tsbuildinfo
+# Prisma generated client
+apps/api/src/generated/
+apps/api/generated/
+
+# Prisma CLI generated assistant files
+apps/api/.agents/
+apps/api/.claude/
+apps/api/.windsurf/
+apps/api/skills-lock.json

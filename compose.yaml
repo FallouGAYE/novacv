@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: novacv-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: novacv
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-novacv_dev_password}
+      POSTGRES_DB: novacv_db
+
+    ports:
+      - "127.0.0.1:5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U novacv -d novacv_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

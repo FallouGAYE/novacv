@@ -11,6 +11,16 @@ export const envSchema = z.object({
     .min(1)
     .max(65535)
     .default(3001),
+
+  DATABASE_URL: z
+    .string()
+    .min(1, 'DATABASE_URL est obligatoire')
+    .refine(
+      (value) =>
+        value.startsWith('postgresql://') ||
+        value.startsWith('postgres://'),
+      'DATABASE_URL doit être une URL PostgreSQL',
+    ),
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;
