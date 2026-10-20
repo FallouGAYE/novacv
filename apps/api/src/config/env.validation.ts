@@ -21,6 +21,13 @@ export const envSchema = z.object({
         value.startsWith('postgres://'),
       'DATABASE_URL doit être une URL PostgreSQL',
     ),
+
+  JWT_ACCESS_SECRET: z
+    .string()
+    .min(
+      32,
+      'JWT_ACCESS_SECRET doit contenir au moins 32 caractères',
+    ),
 });
 
 export type EnvConfig = z.infer<typeof envSchema>;

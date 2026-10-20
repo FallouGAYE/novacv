@@ -20,6 +20,9 @@ import { PrismaUserRepository } from './infrastructure/prisma-user.repository.js
     },
   ],
 
-  exports: [UsersService],
+  exports: [
+    UsersService,
+    USER_REPOSITORY,
+  ],
 })
 export class UsersModule {}

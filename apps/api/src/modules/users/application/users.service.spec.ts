@@ -10,9 +10,16 @@ import type {
 describe('UsersService', () => {
   let service: UsersService;
 
+  // Mock des méthodes du repository
   const findById = vi.fn<UserRepository['findById']>();
   const findByEmail = vi.fn<UserRepository['findByEmail']>();
 
+  const findCredentialsByEmail =
+    vi.fn<UserRepository['findCredentialsByEmail']>();
+
+  const create = vi.fn<UserRepository['create']>();
+
+  // Utilisateur utilisé pour les tests
   const user: User = {
     id: '550e8400-e29b-41d4-a716-446655440000',
     email: 'test@novacv.com',
@@ -23,12 +30,14 @@ describe('UsersService', () => {
   };
 
   beforeEach(() => {
-    findById.mockReset();
-    findByEmail.mockReset();
+    // Réinitialisation des mocks avant chaque test
+    vi.resetAllMocks();
 
     const repository: UserRepository = {
       findById,
       findByEmail,
+      findCredentialsByEmail,
+      create,
     };
 
     service = new UsersService(repository);

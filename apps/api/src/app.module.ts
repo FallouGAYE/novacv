@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './modules/users/users.module.js';
+
 import { validateEnv } from './config/env.validation.js';
+
 import { DatabaseModule } from './infrastructure/database/database.module.js';
+
+import { AuthModule } from './modules/auth/auth.module.js';
+import { UsersModule } from './modules/users/users.module.js';
+import { ResumesModule } from './modules/resumes/resumes.module.js';
 
 @Module({
   imports: [
@@ -11,8 +16,11 @@ import { DatabaseModule } from './infrastructure/database/database.module.js';
       envFilePath: '.env',
       validate: validateEnv,
     }),
+
     DatabaseModule,
-	UsersModule,
+    UsersModule,
+    AuthModule,
+    ResumesModule,
   ],
 })
 export class AppModule {}
