@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 
 import { DatabaseModule } from '../../infrastructure/database/database.module.js';
-
 import { AuthModule } from '../auth/auth.module.js';
 
 import {
@@ -19,17 +18,26 @@ import {
   ResumeExperiencesService,
 } from './application/resume-experiences.service.js';
 
+import {
+  RESUME_EDUCATION_REPOSITORY,
+  ResumeEducationsService,
+} from './application/resume-educations.service.js';
+
 import { PrismaResumeRepository } from './infrastructure/prisma-resume.repository.js';
 
 import { PrismaResumePersonalInfoRepository } from './infrastructure/prisma-resume-personal-info.repository.js';
 
 import { PrismaResumeExperienceRepository } from './infrastructure/prisma-resume-experience.repository.js';
 
+import { PrismaResumeEducationRepository } from './infrastructure/prisma-resume-education.repository.js';
+
 import { ResumesController } from './presentation/resumes.controller.js';
 
 import { ResumePersonalInfoController } from './presentation/resume-personal-info.controller.js';
 
 import { ResumeExperiencesController } from './presentation/resume-experiences.controller.js';
+
+import { ResumeEducationsController } from './presentation/resume-educations.controller.js';
 
 @Module({
   imports: [
@@ -41,12 +49,14 @@ import { ResumeExperiencesController } from './presentation/resume-experiences.c
     ResumesController,
     ResumePersonalInfoController,
     ResumeExperiencesController,
+    ResumeEducationsController,
   ],
 
   providers: [
     ResumesService,
     ResumePersonalInfoService,
     ResumeExperiencesService,
+    ResumeEducationsService,
 
     {
       provide: RESUME_REPOSITORY,
@@ -62,12 +72,18 @@ import { ResumeExperiencesController } from './presentation/resume-experiences.c
       provide: RESUME_EXPERIENCE_REPOSITORY,
       useClass: PrismaResumeExperienceRepository,
     },
+
+    {
+      provide: RESUME_EDUCATION_REPOSITORY,
+      useClass: PrismaResumeEducationRepository,
+    },
   ],
 
   exports: [
     ResumesService,
     ResumePersonalInfoService,
     ResumeExperiencesService,
+    ResumeEducationsService,
   ],
 })
 export class ResumesModule {}
