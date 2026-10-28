@@ -23,6 +23,11 @@ import {
   ResumeEducationsService,
 } from './application/resume-educations.service.js';
 
+import {
+  RESUME_SKILL_REPOSITORY,
+  ResumeSkillsService,
+} from './application/resume-skills.service.js';
+
 import { PrismaResumeRepository } from './infrastructure/prisma-resume.repository.js';
 
 import { PrismaResumePersonalInfoRepository } from './infrastructure/prisma-resume-personal-info.repository.js';
@@ -31,6 +36,8 @@ import { PrismaResumeExperienceRepository } from './infrastructure/prisma-resume
 
 import { PrismaResumeEducationRepository } from './infrastructure/prisma-resume-education.repository.js';
 
+import { PrismaResumeSkillRepository } from './infrastructure/prisma-resume-skill.repository.js';
+
 import { ResumesController } from './presentation/resumes.controller.js';
 
 import { ResumePersonalInfoController } from './presentation/resume-personal-info.controller.js';
@@ -38,6 +45,8 @@ import { ResumePersonalInfoController } from './presentation/resume-personal-inf
 import { ResumeExperiencesController } from './presentation/resume-experiences.controller.js';
 
 import { ResumeEducationsController } from './presentation/resume-educations.controller.js';
+
+import { ResumeSkillsController } from './presentation/resume-skills.controller.js';
 
 @Module({
   imports: [
@@ -50,6 +59,7 @@ import { ResumeEducationsController } from './presentation/resume-educations.con
     ResumePersonalInfoController,
     ResumeExperiencesController,
     ResumeEducationsController,
+    ResumeSkillsController,
   ],
 
   providers: [
@@ -57,6 +67,7 @@ import { ResumeEducationsController } from './presentation/resume-educations.con
     ResumePersonalInfoService,
     ResumeExperiencesService,
     ResumeEducationsService,
+    ResumeSkillsService,
 
     {
       provide: RESUME_REPOSITORY,
@@ -77,6 +88,11 @@ import { ResumeEducationsController } from './presentation/resume-educations.con
       provide: RESUME_EDUCATION_REPOSITORY,
       useClass: PrismaResumeEducationRepository,
     },
+
+    {
+      provide: RESUME_SKILL_REPOSITORY,
+      useClass: PrismaResumeSkillRepository,
+    },
   ],
 
   exports: [
@@ -84,6 +100,7 @@ import { ResumeEducationsController } from './presentation/resume-educations.con
     ResumePersonalInfoService,
     ResumeExperiencesService,
     ResumeEducationsService,
+    ResumeSkillsService,
   ],
 })
 export class ResumesModule {}

@@ -35,6 +35,7 @@ model Resume {
   personalInfo ResumePersonalInfo?
   experiences  ResumeExperience[]
   educations   ResumeEducation[]
+  skills       ResumeSkill[]
 
   @@index([userId])
   @@map("resumes")
@@ -121,4 +122,24 @@ model ResumeEducation {
   @@index([resumeId])
   @@index([resumeId, position])
   @@map("resume_educations")
+}
+
+model ResumeSkill {
+  id       String @id @default(uuid()) @db.Uuid
+  resumeId String @db.Uuid
+
+  name     String
+  category String?
+  level    String?
+
+  position Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@index([resumeId])
+  @@index([resumeId, position])
+  @@map("resume_skills")
 }
